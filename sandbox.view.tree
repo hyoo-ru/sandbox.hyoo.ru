@@ -1,0 +1,4 @@
+$hyoo_sandbox $mol_view
+	sub /
+		<= App $hyoo_sandbox_interactive
+		

@@ -1,0 +1,10 @@
+{
+	"$hyoo_sandbox_interactive_tree_source_hint": "view.tree",
+	"$hyoo_sandbox_interactive_tsLabel": ".ts",
+	"$hyoo_sandbox_interactive_ts_source_hint": "view.ts",
+	"$hyoo_sandbox_interactive_cssLabel": ".css",
+	"$hyoo_sandbox_interactive_css_source_hint": "view.css",
+	"$hyoo_sandbox_interactive_app_widgets_title": "$mol компоненты",
+	"$hyoo_sandbox_interactive_control_submit_label": "Выполнить",
+	"$hyoo_sandbox_interactive_control_c1Label": "Автозапуск"
+}
