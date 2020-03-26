@@ -34,11 +34,10 @@ $hyoo_sandbox_interactive $mol_book
 			<= Frame $mol_view
 				sub /
 					<= Scroll $mol_scroll sub <= apps /
-						<= App_widgets $mol_demo_ext 
-							title <= app_widgets_title @ \$mol components
-							attr *
-								data <= url?val \
-					<= Spinner $hyoo_sandbox_spinner
+						<= App_widgets $mol_frame
+							uri <= url?val \ /hyoo/sandbox/page/page
+						
+					
 $hyoo_sandbox_interactive_control $mol_view 
 	sub /
 		<= Button $mol_button_major

@@ -1,11 +1,14 @@
 namespace $.$$ {
 
+
+
 	export class $hyoo_sandbox_interactive extends $.$hyoo_sandbox_interactive {
 		host = `http://${location.hostname}:9080`
 		// host = `https://${location.hostname}`
-		ws =  `ws://${location.hostname}:9001`
+		ws = `ws://${location.hostname}:9001`
 		// ws = `wss://${location.hostname}/ws`
 		socket = new WebSocket(this.ws)
+
 
 		@$mol_mem
 		connection() {
@@ -21,11 +24,11 @@ namespace $.$$ {
 					this.$.$mol_state_arg.value('css_source', parsed.css);
 				}
 				if (!this.url() || this.url().indexOf(parsed.module) == -1) {
-					this.url(`${this.host}/hyoo/sandbox/page/${parsed.module}`)
+					this.url(`${this.host}/hyoo/sandbox/page/${parsed.module}?${new Date().getTime()}`)
 				}
 				setTimeout(() => {
-					const frame = $hyoo_sandbox.Root(0).App().Spinner().dom_node() as HTMLElement;
-					frame.style.display = "none"
+					// const frame = $hyoo_sandbox.Root(0).App().Spinner().dom_node() as HTMLElement;
+					// frame.style.display = "none"
 				}, 2000);
 
 			}
@@ -49,6 +52,10 @@ namespace $.$$ {
 		}
 
 		send_source() {
+			if (!this.$.$mol_state_arg.dict()['tree_source']) {
+				this.sending_source.tree = `$hyoo_sandbox_page $mol_view\n\tsub /\n\t\t\\ hello world`
+				this.$.$mol_state_arg.value('tree_source', `$hyoo_sandbox_page $mol_view\n\tsub /\n\t\t\\ hello world`);
+			}
 			if (
 				(this.current_source.tree != this.sending_source.tree ||
 					this.current_source.css != this.sending_source.css ||
@@ -58,14 +65,13 @@ namespace $.$$ {
 
 				if (this.socket.readyState === this.socket.OPEN) {
 					this.socket.send(JSON.stringify(this.sending_source));
-					const frame = $hyoo_sandbox.Root(0).App().Spinner().dom_node() as HTMLElement;
-					frame.style.display = ""
+					// const frame = $hyoo_sandbox.Root(0).App().Spinner().dom_node() as HTMLElement;
+					// frame.style.display = ""
 				}
 			}
 		}
 		render() {
 			this.connection();
-
 			return super.render();
 		}
 		ctrl_s_press(event: KeyboardEvent) {

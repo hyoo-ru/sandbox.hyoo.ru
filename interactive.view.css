@@ -2,6 +2,12 @@
   height: 100%;
   width: 100%;
 }
+[hyoo_sandbox_interactive_app_widgets] {
+  height: 100%;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+}
 
 [hyoo_sandbox_interactive_control] {
   position: absolute;
