@@ -1,0 +1,7 @@
+$hyoo_sandbox_toggle $mol_view
+	sub /
+		<= Left <= left $mol_view sub / \left	
+		<= toggle $mol_check
+			checked?val <=> is_check?val false
+		<= Right <= right $mol_view sub / \right	
+	

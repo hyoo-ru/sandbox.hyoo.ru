@@ -1,4 +1,26 @@
 $hyoo_sandbox $mol_view
+	attr * mol_theme \$mol_theme_auto
 	sub /
-		<= App $hyoo_sandbox_interactive
-		
+		<= Book?val $mol_book
+			Placeholder null
+			event_front_up?val <=> event_front_up?val null
+			event_front_down?val <=> event_front_down?val null
+			pages /
+				<= Input $mol_page
+					Head null
+					minimal_width 400
+					minimal_height 400
+					body / 
+						<= right $hyoo_sandbox_left
+				<= Divider $mol_view
+					sub / \
+				<= Output $mol_page
+					Head null
+					minimal_width 400
+					body / 
+						<= Frame $mol_frame
+							uri <= url?val \ /my/page		
+		<= Mobile $hyoo_sandbox_toggle
+			left <= left_title $mol_view sub / @\Input
+			right <= right_title $mol_view sub / @\Output
+			

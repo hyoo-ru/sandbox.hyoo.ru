@@ -1,0 +1,42 @@
+$hyoo_sandbox_left $mol_view
+	
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> ctrl_s_press?event null 
+	sub /
+		<= Button $hyoo_sandbox_left_control
+			event_submit?event <= handle_click?event null 
+			base_checked?val <=> handle_checked?val true
+		<= Info $mol_deck
+			items /
+				<= treeSource *
+					title <= treeLabel \.tree
+					Content <= TreeSource $mol_textarea
+						focused <= focus true 
+						value?val <=> tree_source?val \
+						hint <= tree_source_hint @ \view.tree source
+				<= tsSource *
+					title <= tsLabel @ \.ts
+					Content <= TsSource $mol_textarea
+						value?val <=> ts_source?val \
+						hint <= ts_source_hint @ \view.ts source
+				<= cssSource *
+					title <= cssLabel @ \.css
+					Content <= CssSource $mol_textarea
+						value?val <=> css_source?val \
+						hint <= css_source_hint @ \view.css source
+				<= metaSource *
+					title <= metaLabel @ \.meta
+					Content <= MetaSource $mol_textarea
+						value?val <=> meta_source?val \
+						hint <= meta_source_hint @ \meta.tree source	
+$hyoo_sandbox_left_control $mol_view 
+	sub /
+		<= Button $mol_button_major
+			event_click?event <=> event_submit?event null
+			sub /
+				<= submit_label $mol_icon_restart
+		<= Save $mol_check_icon
+			checked?val <=> base_checked?val true
+			Icon <= check_label $mol_icon_tick 
