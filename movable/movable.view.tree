@@ -1,0 +1,6 @@
+$hyoo_sandbox_movable $mol_ghost
+	pos_x?val null
+	pos_y?val null
+	start?event null
+	done?event null
+	

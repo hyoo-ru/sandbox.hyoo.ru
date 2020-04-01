@@ -12,5 +12,12 @@ namespace $.$$ {
 			}
 			return (val !== void 0) ? val : false
 		}
+		
+		left_click(event: Event) {
+			this.is_check(false);
+		}
+		right_click(event: Event) {
+			this.is_check(true);
+		}
 	}
 }

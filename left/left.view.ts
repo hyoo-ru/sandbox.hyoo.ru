@@ -1,10 +1,10 @@
 namespace $.$$ {
 
 	export class $hyoo_sandbox_left extends $.$hyoo_sandbox_left {
-		host = `http://${location.hostname}:9080`
-		// host = `https://${location.hostname}`
-		ws = `ws://${location.hostname}:9001`
-		// ws = `wss://${location.hostname}/ws`
+		// host = `http://${location.hostname}:9080`
+		host = `https://${location.hostname}`
+		// ws = `ws://${location.hostname}:9001`
+		ws = `wss://${location.hostname}/ws`
 		socket = new WebSocket(this.ws)
 		is_auto_save = false;
 

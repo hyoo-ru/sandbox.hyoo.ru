@@ -1,0 +1,4 @@
+$hyoo_sandbox_splitter $hyoo_sandbox_movable
+	type \horizontal
+	Sub <= Divider $mol_view
+		sub / \

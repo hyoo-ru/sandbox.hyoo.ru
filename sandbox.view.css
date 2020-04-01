@@ -1,26 +1,22 @@
 [hyoo_sandbox] {
   display: flex;
   flex-direction: column;
-  transition-duration: 0s;
 }
+
 [hyoo_sandbox_book] {
   height: auto;
 }
 [hyoo_sandbox_divider] {
   padding: 0 2px;
   width: 0;
-  height: 100%;
-  cursor: ew-resize;
+  
   background-color: var(--mol_skin_current);
 }
 [hyoo_sandbox_input],
 [hyoo_sandbox_output] {
   width: 0;
   transition: ease-out;
-  transition-duration: 0.2s;
-}
-[hyoo_sandbox_divider] {
-  transition-duration: 0s;
+  /* transition-duration: 0.2s; */
 }
 
 [mol_book] > [hyoo_sandbox_input]:not([mol_book_page_visible]) {

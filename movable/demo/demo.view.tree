@@ -1,0 +1,8 @@
+$hyoo_sandbox_movable_demo $mol_view
+	sub /
+		<= Box $hyoo_sandbox_movable
+			start?event <=> start?event null
+			done?event <=> done?event null
+			Sub <= view $mol_view 
+				sub / 
+					<= coordinates null

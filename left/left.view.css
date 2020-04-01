@@ -3,17 +3,6 @@
   flex-direction: column;
   height: 100%;
 }
-
-[hyoo_sandbox_left_info_switch] {
-  display: flex;
-  flex-wrap: wrap;
-  flex: 0 0 0vw;
-  border-radius: var(--mol_skin_round);
-  box-shadow: inset 0 0 0 0.5px var(--mol_theme_line);
-  padding: 0.5rem;
-}
 [hyoo_sandbox_left_control] {
-	position: absolute;
-	right: 0;
-	margin: 0.5rem;
+    align-self: center;
   }

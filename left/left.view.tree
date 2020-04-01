@@ -5,10 +5,11 @@ $hyoo_sandbox_left $mol_view
 		^
 		keydown?event <=> ctrl_s_press?event null 
 	sub /
-		<= Button $hyoo_sandbox_left_control
-			event_submit?event <= handle_click?event null 
-			base_checked?val <=> handle_checked?val true
-		<= Info $mol_deck
+		
+		<= Info $hyoo_sandbox_deck
+			Controls <= Button $hyoo_sandbox_left_control
+				event_submit?event <= handle_click?event null 
+				base_checked?val <=> handle_checked?val true
 			items /
 				<= treeSource *
 					title <= treeLabel \.tree
@@ -39,4 +40,4 @@ $hyoo_sandbox_left_control $mol_view
 				<= submit_label $mol_icon_restart
 		<= Save $mol_check_icon
 			checked?val <=> base_checked?val true
-			Icon <= check_label $mol_icon_tick 
+			Icon <= check_label $mol_icon_autorenew 

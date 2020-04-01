@@ -1,0 +1,5 @@
+[hyoo_sandbox_splitter_divider] {
+  padding: 0 2px;
+  cursor: ew-resize;
+  background-color: var(--mol_skin_current);
+}

@@ -12,14 +12,16 @@ $hyoo_sandbox $mol_view
 					minimal_height 400
 					body / 
 						<= right $hyoo_sandbox_left
-				<= Divider $mol_view
+				<= Divider $hyoo_sandbox_splitter
+					start <= start null
+					done <= done null
 					sub / \
 				<= Output $mol_page
 					Head null
 					minimal_width 400
 					body / 
 						<= Frame $mol_frame
-							uri <= url?val \ /my/page		
+							uri <= url?val \/my/page
 		<= Mobile $hyoo_sandbox_toggle
 			left <= left_title $mol_view sub / @\Input
 			right <= right_title $mol_view sub / @\Output

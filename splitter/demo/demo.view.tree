@@ -1,0 +1,24 @@
+$hyoo_sandbox_splitter_demo $mol_view
+	sub /
+		<= Left $mol_view
+			sub / \left
+		<= splitter $hyoo_sandbox_splitter
+		<= Right $mol_view
+			sub / 
+				<= Right_one $mol_view
+					sub / \ right one
+				<= splitter2 $hyoo_sandbox_splitter
+					type \vertical
+				<= Right_two $mol_view
+					sub / \ right two
+		<= Left2 $mol_view
+			sub / \ left2
+		<= splitter3 $hyoo_sandbox_splitter
+		<= Right2 $mol_view
+			sub / 
+				<= Right2_one $mol_view
+					sub / \ right2 one
+				<= splitter5 $hyoo_sandbox_splitter
+					type \vertical
+				<= Right2_two $mol_view
+					sub / \ right2 two

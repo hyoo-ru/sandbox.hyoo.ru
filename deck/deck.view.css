@@ -1,0 +1,10 @@
+[hyoo_sandbox_deck_switch] {
+  display: flex;
+  flex: 1;
+  box-shadow: none;
+}
+
+[hyoo_sandbox_deck_container] {
+  display: flex;
+  justify-content: space-between;
+}
