@@ -1,6 +1,7 @@
 $hyoo_sandbox_left $mol_view
 	
 	submit_blocked false
+	socket_coming?event null
 	event *
 		^
 		keydown?event <=> ctrl_s_press?event null 

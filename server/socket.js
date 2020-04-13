@@ -8,12 +8,13 @@ const wss = new WebSocket.Server({ port: port });
 
 
 function get_dir(_path) {
-	return path.join(require.main.filename, '../../../../my/', `/${_path}`)
+	return path.join(require.main.filename, '../../../../my/', `/page/${_path}`)
 }
 
 function write(_path, data) {
 	fs.writeFileSync(get_dir(_path), data, 'utf-8')
 }
+
 
 wss.on('connection', function connection(ws) {
 	ws.on('message', function incoming(message) {
@@ -22,12 +23,19 @@ wss.on('connection', function connection(ws) {
 		if (parsed.tree) {
 			let module = parsed.tree.trim().substr(0, parsed.tree.trim().indexOf(' '));
 			let module_name = module.substr(module.lastIndexOf('_') + 1);
-
 			if (module.indexOf('my_page') == -1) {
-				module_name = 'page';
-				const module_new = `$my_page`;
+				module_name = parsed.user;
+				const module_new = `$my_page_${parsed.user}_${module_name}`;
 				parsed.tree = parsed.tree.replace(module, module_new);
-				module = module_new;
+			}
+			parsed.tree = parsed.tree.replace(module, `$my_page_${parsed.user}_${module_name}`);
+			if (parsed.css) {
+				var find = module.replace('$', '');
+				var re = new RegExp(find, 'g');
+				parsed.css = parsed.css.replace(re, `my_page_${parsed.user}_${module_name}`)
+			}
+			if (parsed.ts) {
+				parsed.ts = parsed.ts.replace(module, `$my_page_${parsed.user}_${module_name}`)
 			}
 
 			if (!parsed.ts) {
@@ -39,19 +47,26 @@ wss.on('connection', function connection(ws) {
 			if (!parsed.meta) {
 				parsed.meta = '';
 			}
-			if (!fs.existsSync(get_dir(module_name))) {
-				fs.mkdirSync(get_dir(module_name));
+			if (!fs.existsSync(get_dir(`${parsed.user}/${module_name}`))) {
+				fs.mkdirSync(get_dir(`${parsed.user}/${module_name}`), {
+					recursive: true
+				});
 			}
-			write(`${module_name}/${module_name}.view.tree`, parsed.tree);
-			write(`${module_name}/${module_name}.view.ts`, parsed.ts);
-			write(`${module_name}/${module_name}.view.css`, parsed.css);
-			write(`${module_name}/${module_name}.meta.tree`, parsed.meta);
-			write(`${module_name}/index.html`, getTemplate(new Date().getTime(), module));
+			write(`${module_name}.view.tree`, parsed.tree);
+			write(`${module_name}.view.ts`, parsed.ts);
+			write(`${module_name}.view.css`, parsed.css);
+			write(`${module_name}.meta.tree`, parsed.meta);
+			write(`index.html`, getTemplate(new Date().getTime(), `$my_page_${parsed.user}_${module_name}`));
 			const execSync = require('child_process').execSync
-			if (!fs.existsSync(get_dir(`${module_name}/-`))) {
-				let output = execSync(`cd ${path.join(__dirname, '../../../')} && yarn start my/${module_name} `);
-			}
-			ws.send(JSON.stringify({ ...parsed, module: module_name }));
+
+			// if (!fs.existsSync(get_dir(`${parsed.user}/${module_name}/-`))) {
+			// 	let output = execSync(`cd ${path.join(__dirname, '../../../')} && yarn start my/page`);
+			// }
+			setTimeout(() => {
+				execSync(`cd ${path.join(__dirname, '../../../my/page/')} && cp -R '-' ${parsed.user}/${module_name}/`);
+				ws.send(JSON.stringify({ ...parsed, module: `page/${parsed.user}/${module_name}` }));
+			}, 5000);
+
 		}
 
 	});

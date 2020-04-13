@@ -12,6 +12,8 @@ namespace $.$$ {
 			})(new this.$.$mol_book())
 		}
 
+		
+
 		prepare_Pages(obj?: any) {
 			if (obj <= 768) {
 				(this.Mobile().dom_node() as HTMLElement).style.display = 'grid';

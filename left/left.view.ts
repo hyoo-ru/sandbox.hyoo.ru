@@ -2,11 +2,11 @@ namespace $.$$ {
 
 	export class $hyoo_sandbox_left extends $.$hyoo_sandbox_left {
 		// host = `http://${location.hostname}:9080`
-		host = `https://${location.hostname}`
+		// host = `https://${location.hostname}`
 		// ws = `ws://${location.hostname}:9001`
 		ws = `wss://${location.hostname}/ws`
 		socket = new WebSocket(this.ws)
-		is_auto_save = false;
+		is_auto_save = true;
 
 		@$mol_mem
 		connection() {
@@ -22,18 +22,25 @@ namespace $.$$ {
 					this.$.$mol_state_arg.value('css_source', parsed.css);
 					this.$.$mol_state_arg.value('meta_source', parsed.meta);
 				}
+				this.$.$mol_state_arg.value('module', parsed.module);
+				this.socket_coming(parsed.module);
 			}
 
 			this.sending_source.tree = this.$.$mol_state_arg.dict()['tree_source'];
 			this.sending_source.ts = this.$.$mol_state_arg.dict()['ts_source'];
 			this.sending_source.css = this.$.$mol_state_arg.dict()['css_source'];
 			this.sending_source.meta = this.$.$mol_state_arg.dict()['meta_source'];
+			this.sending_source.module = this.$.$mol_state_arg.dict()['module'];
 
+			this.handle_checked(true)
 			if (this.handle_checked() && this.is_auto_save) {
 				this.auto_save();
 			}
 			setTimeout(() => {
+				this.crate_user()
 				this.send_source();
+				if (this.sending_source.module)
+					this.socket_coming(this.sending_source.module);
 			}, 1000);
 
 			return {
@@ -43,11 +50,24 @@ namespace $.$$ {
 			}
 		}
 
+		crate_user() {
+			if (this.sending_source.user == '') {
+				if (this.$.$mol_state_local.value('user'))
+					this.sending_source.user = this.$.$mol_state_local.value('user')
+				else {
+					this.sending_source.user = Math.random().toString(36).substring(2)
+					this.$.$mol_state_local.value('user', this.sending_source.user)
+				}
+			}
+		}
+
 		send_source() {
 			if (!this.$.$mol_state_arg.dict()['tree_source']) {
 				this.sending_source.tree = `$my_page $mol_view\n\tsub /\n\t\t\\ hello world`
 				this.$.$mol_state_arg.value('tree_source', `$my_page $mol_view\n\tsub /\n\t\t\\ hello world`);
 			}
+			this.crate_user()
+
 			if (
 				(this.current_source.tree !== this.sending_source.tree ||
 					this.current_source.css != this.sending_source.css ||
@@ -83,7 +103,7 @@ namespace $.$$ {
 		}
 		@$mol_mem
 		handle_checked(val?: any, force?: $mol_mem_force) {
-			if (val ) {
+			if (val) {
 				this.auto_save()
 			} else {
 				this.stop_auto_save()
@@ -117,8 +137,8 @@ namespace $.$$ {
 			return next
 		}
 		typing = new Date().getTime();
-		sending_source = { tree: '', ts: '', css: '', meta: '' };
-		current_source = { tree: '', ts: '', css: '', meta: '' };;
+		sending_source = { tree: '', ts: '', css: '', meta: '', module: '', user: '' };
+		current_source = { tree: '', ts: '', css: '', meta: '', module: '', user: '' };;
 
 		tree_source(next?: string) {
 			let source = this.$.$mol_state_arg.value('tree_source', next)
